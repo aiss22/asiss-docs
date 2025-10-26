@@ -1,0 +1,5 @@
+# 忽略 Node.js 依赖包目录
+node_modules/
+.cache
+.temp
+dist
