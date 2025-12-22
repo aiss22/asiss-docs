@@ -6,10 +6,10 @@ export default defineUserConfig({
   base: "/",
 
   lang: "zh-CN",
-  title: "文档演示",
-  description: "vuepress-theme-hope 的文档演示",
+  title: "Aiss 笔记",
+  description: "后端 | 前端 | 数据库 ",
 
-  theme,
+  theme
 
   // 和 PWA 一起启用
   // shouldPrefetch: false,

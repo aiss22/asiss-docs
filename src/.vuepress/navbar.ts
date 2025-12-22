@@ -4,6 +4,8 @@ export default navbar([
   "/",
   "/backend/",
   "/frontend/",
+  "/english/",
+  "/backend/base/",
   {
     text: "V2 文档",
     icon: "book",
