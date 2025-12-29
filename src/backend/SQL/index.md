@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SQL 语句
 
 `Select` 查询
@@ -74,6 +73,7 @@ group by 分组
 having 条件
 order by 排序
 limit 限制数量
+Top 1 限制行数
 
 `distinct` 可用来排除表格中重复的资料（可配合count使用）
 (select count(distinct 物品))(select distinct 物品)
@@ -87,27 +87,3 @@ limit 限制数量
 
  删除表格：
  drop table 表格名称;
-=======
-- Select 查询
--- index 索引
--- 联合索引 多字段联合起来索引
-
-- update 修改
-
-- delete 删除
-
--- insert 增加
-
-
--- left join
-
--- right join
-
--- inner join
-
-
--- PROCEDURE 存储过程
-存储过程就是把函数写在Sql里面的
--- view 视图
-视图就是把链接过程简化，
->>>>>>> 7743361759f96bacfd22c86fcea90a36fcdac05f
