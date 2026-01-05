@@ -11,6 +11,14 @@
 
 `insert into`增加
 
+```insert
+INSERT INTO 表名 (字段1, 字段2, 字段3)
+VALUES
+(值1, 值2, 值3),
+(值1, 值2, 值3),
+(值1, 值2, 值3);
+```
+
 `left join`
 
 ```示例
@@ -31,9 +39,33 @@ on 表名.姓名 = 表名2.姓名
 
 -- 窗口函数
  over Rang
+ 窗口函数是在不减少行数的情况下，对一组相关行进行排序、分组并计算结果的函数
+窗口函数通过 OVER() 子句定义计算范围，可以在保留明细行的同时做排序、排名或累计计算，常用于报表和分析场景
+常见窗口函数（记住这几个就够了）
+
+ROW_NUMBER()：给结果集按规则编号
+
+RANK() / DENSE_RANK()：排名（是否跳号不同）
+
+SUM() OVER()：累计求和
+
+AVG() OVER()：窗口平均
+
+LAG() / LEAD()：取上一行 / 下一行数据
 
 `PROCEDURE` 存储过程
-存储过程就是把函数写在Sql里面的(直接在sql里面编写语句)
+存储过程就是把函数写在Sql里面(直接在sql里面编写语句)
+
+```1
+create procedure GetAllUser --创建存储过程，名字叫GetAllUser
+AS
+begin --begin/end 存储过程的代码范围像C#的{}
+select * from dbo.T_User
+end
+
+EXEC GetAllUser --执行存储过程
+```
+
 `view` 视图
 视图就是把链接过程简化，
 
