@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>buttons</title>
+
+  <style>
+    .but-bilibili{
+      border: none;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: rgb(251, 144, 160);
+      color: white;
+      border-radius: 5px;
+      transition: opacity 0.15s;
+      cursor: pointer;
+    }
+
+    .but-bilibili:hover{
+      opacity: 0.8;
+    }
+
+    .but-bilibili:active{
+      opacity: 0.5;
+    }
+
+    .but-join{
+      border-color: rgb(14, 117, 213);
+      color: rgb(14, 117, 213);
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 2px;
+      background-color: white;
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-top: 12px;
+      padding-bottom: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+      transition: background-color 0.15s,color 0.15s;
+      cursor: pointer;
+    }
+
+    .but-join:hover{
+      background-color: rgb(72, 138, 236);
+      color: white;
+    }
+
+    .but-join:active{
+      opacity: 0.8;
+    }
+
+    .but-tweet{
+      background-color: rgb(34, 167, 255);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 18px;
+      padding-right: 18px;
+      font-weight: bold;
+      font-size: 15px;
+      transition: box-shadow 0.15s;
+      cursor: pointer;
+    }
+
+    .but-tweet:hover{
+      box-shadow: 2px 3px 10px rgb(190, 190, 190);
+    }
+
+    .but-tweet:active{
+      opacity: 0.8;
+    }
+  </style>
+
+</head>
+<body>
+  <button class="but-bilibili">
+    哔哩哔哩
+  </button>
+  <button class="but-join">
+    JOIN
+  </button>
+  <button class="but-tweet">
+    Tweet
+  </button>
+</body>
+</html>
