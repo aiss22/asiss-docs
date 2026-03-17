@@ -885,3 +885,869 @@ Console.WriteLine(a);//time
 ```
 
 提取字符数组中的一部分初始化（了解）
+
+空字符串与空引用的区别：
+`string str =null;和 string str =""`是两种不同的概念，
+
+`string str =null`是空对象，没有指向任何引用地址，调用string的方法会抛出Null Reference Exception空引用异常；
+
+`string str =""`是一个字符串，分配了内存空间，可以调用string的任何方法，只是没有显示任何数据
+
+获取字符串长度：
+语法：`public int Length{get;}`
+
+```cs
+string str = "123 45";//空格也算一个字符
+int l = str.Length;//Length属性是string类的一个属性，返回字符串中字符的个数
+Console.WriteLine(l);//输出结果为6
+```
+
+获取指定位置字符:
+语法：`public char this[int index]{get;}`
+
+```cs
+string str1 = "12345";
+char ch = str1[3];//字符串的索引从0开始，所以str1[3]表示字符串中的第四个字符，即'4'
+Console.WriteLine(ch);
+```
+
+获取子字符串的位置:
+两种方法：
+往前：
+（掌握）`public int IndexOf(string value);`获取第一次出现的索引
+（掌握）`public int IndexOf(string value,int starIndex)`从指定位置往后查
+（了解）`public int IndexOf(string value,int starIndex,int count)`从指定位置往后查几个字符
+
+```cs
+string str2 = "你好，你是谁";
+int index = str2.IndexOf("你");
+Console.WriteLine(index);//输出结果为0，因为"你"在字符串中的第一个位置是索引0
+
+string str3 = "你好，你是谁";
+int index2 = str3.IndexOf("你",2);
+Console.WriteLine(index2);//输出结果为3，因为从索引2开始搜索，"你"在字符串中的第二个位置是索引3
+
+string str4 = "你好，你是谁";
+int index3 = str4.IndexOf("你",2,3);
+Console.WriteLine(index3);//3
+```
+
+往后：
+换成`LastIndexOf`
+`public int LastIndexOf(string value);`获取最后一次出现的索引
+
+```cs
+string str5 = "你好，你是谁你";
+int index4 = str5.LastIndexOf("你");
+Console.WriteLine(index4);//6
+```
+
+判断字符串首尾内容:
+结尾语法：
+`public bool EndsWith(string value)`
+
+```cs
+string str = "Program.cs";
+bool bl = str.EndsWith(".cs");
+Console.WriteLine(bl);//True
+
+bool bl1 = str.EndsWith(".CS");
+Console.WriteLine(bl1);//False
+```
+
+`public bool EndsWith(string value,bool ignoreCase,CultureInfo culture)`传入ture忽略大小写
+
+```cs
+string str = "Program.cs";
+bool bl2 = str.EndsWith(".CS",true,null);
+Console.WriteLine(bl2);//True
+```
+
+开头语法：
+`public bool EndsWith(string value)`
+`public bool EndsWith(string value,bool ignoreCase,CultureInfo culture)`
+跟结尾使用方法相同
+
+```cs
+string str2 = "Hello World";
+bool bl3 = str2.StartsWith("Hello");//True
+bool bl4 = str2.StartsWith("hello");//False
+bool bl5 = str2.StartsWith("hello",true,null);//True
+```
+
+### 字符串的拼接
+
+使用“+”运算符可以实现拼接多个字符串的功能
+如`string a = "123"+"456";//123456`
+
+### 比较字符串
+
+使用“==”比较是否相等
+
+Compare方法
+
+`public static int Compare(string strA,string strB)`
+`public static int Compare(string strA,string strB,bool ignoreCase)`在strA和strB为字母的时候使用这个方法判断大小写
+
+```cs
+string strA = "me";
+string strB = "ME";
+Console.WriteLine(string.Compare(strA,strB));//-1，表示strA小于strB，区分大小写
+Console.WriteLine(string.Compare(strA,strB,true));//0，表示strA和strB相等,不区分大小写
+```
+
+CompareTo方法
+`public int CompareTo(Object value)`
+`public int CompareTo(string value)`
+
+```cs
+string strA = "me";
+string strB = "ME";
+Console.WriteLine(strA.CompareTo(strB));//-1，表示strA小于strB，区分大小写
+```
+
+Equals方法
+`public bool Equals(string value)`
+`public static bool Equals(string a,string b)`
+
+```cs
+string strA = "me";
+string strB = "ME";
+Console.WriteLine(strA.Equals(strB));//false
+Console.WriteLine(string.Equals(strA,strB));//false
+```
+
+### 字符串的大小写转换
+
+字符串变成大写：`public string ToUpper()`
+
+字符串变成小写：`public string ToLower()`
+
+```cs
+string str1 = "Hello World";
+string toUpper = str1.ToUpper();//转换为大写字母
+Console.WriteLine(toUpper);
+
+string toLower = str1.ToLower();//转换为小写字母
+Console.WriteLine(toLower);
+```
+
+### 截取字符串
+
+`public string Substring(int startIndex)`开始截取的位置（后全部）
+`public string Substring(int startIndex,int length)`开始截取的位置，要截取的字符数
+
+```cs
+string id = "1234567890";
+string num = id.Substring(2);//从索引2开始截取字符串，返回结果为"34567890"
+Console.WriteLine(num);
+
+string str = "Program.cs";
+string subStr = str.Substring(0, str.IndexOf("."));//从索引0开始截取字符串，截取的长度为str.IndexOf(".")，即从索引0开始截取到"."之前的字符串，返回结果为"Program"
+Console.WriteLine(subStr);
+
+string subStr2 = str.Substring(str.IndexOf("."));//从索引str.IndexOf(".")开始截取字符串，返回结果为".cs"
+Console.WriteLine(subStr2);
+```
+
+### 分割字符串
+
+将字符串按照指定的符号分割成数组：
+`public string[] Split(params char[] separator)`指定分割符号
+
+```cs
+string str = "Program.cs";
+string[] strs = str.Split(new char[] {'.'});//从字符串str中以"."为分隔符，分割成多个子字符串
+for(int i = 0; i<strs.Length;i++)
+{
+    Console.WriteLine(strs[i]);//输出结果为Program和cs
+}
+```
+
+指定分割次数：
+`public string[] Split(char[] separator,int count)`指定分割符号，分割次数
+
+```cs
+string str2 = "Program.cs.cs";
+string[] strs2 = str2.Split(new char[] {'.'},2);//从字符串str2中以"."为分隔符，分割成两个子字符串
+foreach (string s in strs2)
+{
+    Console.WriteLine(s);//输出结果为Program和cs.cs
+}
+```
+
+### 去除空白内容
+
+语法：`public string Trim()`直接删除首尾的空格
+
+```cs
+string str = "  Hello World  ";
+Console.WriteLine(str);//输出结果为"  Hello World  "
+
+string trim = str.Trim();//Trim()方法用于去除字符串两端的空格，输出结果为"Hello World"
+Console.WriteLine(trim);
+```
+
+Trim的更多用法：
+
+删除字符串的开头和结尾处的指定字符：
+`public string Trim(params char[] trimChars)`
+
+```cs
+string str2 = "****Hello World@@@@";
+Console.WriteLine(str2);
+
+char[] ch = {'*','@'};
+string trim2 = str2.Trim(ch);//Trim(char[] trimChars)方法用于去除字符串两端指定的字符，输出结果为"Hello World"
+Console.WriteLine(trim2);
+```
+
+### 替换字符串
+
+语法：
+`public string Replace(string OValue,string NValue)`要替换的字符串，替换后的字符串
+
+```cs
+string str = "馒头一文钱一个";
+string str1 = str.Replace("馒头","馍馍");
+Console.WriteLine(str1);//输出结果为"馍馍一文钱一个"
+
+string str2 = str1.Replace('一','壹');
+Console.WriteLine(str2);//输出结果为"馍馍壹文钱壹个"
+```
+
+实际使用时需要注意：替换字符串区分大小写，要跟原始字符串相同
+
+### 可变字符串类
+
+string创建的字符串不可改变，每次调用都重建了一个地址存储
+
+`StringBuilder`可变字符串类
+
+定义：构造函数
+
+```cs
+public StringBuilder();//空对象
+public StringBuilder(int capacity);//设置存储大小
+public StringBuilder(string value);//初始化
+public StringBuilder(int capacity,int maxCapacity);//设置初始大小，最大可存储大小
+public StringBuilder(string value,int capacity);//初始化，指定初始大小
+public StringBuilder(string value,int startIndex,int length,int capacity);//使用初始一部分值，从索引开始，指定的字符数，设置起始大小
+```
+
+StringBuilder常用方法：
+`Append` 将文本或字符串追加到指定对象的末尾
+`AppendFormat` 自定义变量的格式并将这些值追加到StringBuilder对象的末尾
+`Insert` 将字符串或对象添加到当前StringBuilder对象的指定位置
+`Remove` 从当前StringBuilder对象中移除指定数量的字符
+`Replace` 用另一个指定的字符来替换StringBuilder对象的字符
+
+```cs
+StringBuilder sTitle = new StringBuilder("(),(),(),2,4,6,7,8");
+Console.WriteLine(sTitle);
+
+sTitle.Remove(0,9);//Remove(int startIndex, int length)方法用于从字符串中删除指定位置和长度的字符，输出结果为"2,4,6,7,8"
+sTitle.Insert(0,"(门前大桥下),(游过一群鸭),(快来快来数一数),");//Insert(int startIndex, string value)方法用于在字符串的指定位置插入指定的字符串
+Console.WriteLine(sTitle);//输出结果为"(门前大桥下),(游过一群鸭),(快来快来数一数),2,4,6,7,8"
+```
+
+## 类的静态成员
+
+使用static修饰
+static + 变量 = 静态变量
+static + 方法 = 静态方法
+static不能用于常量
+
+静态成员是属于类所有的，调用时，直接使用类名调用
+
+比如：静态调用
+
+```CS
+Console.WriteLine("输出");
+Student.age = 30;
+```
+
+实例调用：需要new
+
+```cs
+Student stu = new Student();
+stu.age = 30;
+```
+
+```cs
+int Sum(int a,int b)
+{
+    return a + b;
+}
+
+static double Sums (double c,double d)
+{
+    return c+d;
+}
+
+static void Main(string[] args)
+{
+
+    Program p = new Program();//创建Program类的对象实例p
+    int i = p.Sum(1,3);//调用实例方法时，需要先创建对象实例，然后通过对象实例来调用方法
+    Console.WriteLine(i);
+    
+    double a = Program.Sums(1.1,3.5);//调用静态方法时，可以直接使用类名来调用，不需要创建对象实例
+    double b = Sums(5.5,5);//在同一个类中调用静态方法时，可以直接使用方法名来调用，不需要使用类名
+    Console.WriteLine(a);
+    Console.WriteLine(b);
+}
+```
+
+### 静态类
+
+static + 类 ---> 静态类
+
+静态类中定义的成员必须是静态的，不能定义实例变量、实例方法或者实例构造函数
+
+## 对象
+
+对象是一个抽象概念，Object，表示任意存在的事务
+
+对象可以表示为属性或行为
+
+### 什么是类
+
+类 是同一类事务的统称，如果将现实世界中的一个事务抽象成对象，类就是这类对象的统称
+
+比如：车是一个类，面包车、摩托车、小轿车就是对象
+
+### 面向对象
+
+三大特点：封装、继承、多态
+
+类 是面向对象编程的核心
+
+### 类
+
+类的声明：
+
+```cs
+class 类名
+{
+    //类中的代码
+}
+```
+
+类的成员：
+
+字段/属性（变量/常量）：类里面的变量就叫字段
+
+字段属于类级别的变量，未初始化时，C#将其初始化为默认值，但不会将局部变量初始化为默认值
+
+```cs
+class Student
+{
+    public int name;//字段
+    public int age;//字段
+}
+```
+
+### 枚举
+
+枚举其实是一种特殊的字段，声明特殊的常量
+
+语法：`访问修饰符 enum 枚举名{值1，值2}`
+
+使用枚举可以增加代码的可读性和可维护性
+
+```cs
+public enum MRKJ
+{
+    //CS,//不设置数值默认从0开始递增
+    //Java,
+    //C
+
+    CS = 1,//不设置数值默认从0开始递增
+    Java = 2,
+    C = 3
+}
+
+static void Main(string[] args)
+{
+    Console.WriteLine((int)MRKJ.Java);//输出结果为2，因为枚举成员Java的值为2
+    Console.WriteLine(MRKJ.CS);//输出结果为CS
+}
+```
+
+### 属性
+
+属性是对现实实体特征的抽象，提供对类或对象的访问
+
+get和set都存在：读写属性
+
+只有get：只读属性
+
+只有set：只写属性
+
+```cs
+private 数据类型 变量名;
+public 数据类型 属性名
+{
+    get{return 变量名;}//get 用于获取相应字段的值
+    set{变量名 = value;}//set用于设置字段的值
+}
+```
+
+使用属性控制输入范围，保护数据安全
+
+```cs
+class Student
+{
+    public int name;//字段
+    private int age;//字段
+    public int Age//属性
+    {
+        get { return age; }//访问器，返回age字段的值
+        set 
+        {
+            if(value >0 && value < 100)
+            {
+                age = value;
+            }
+            else
+            {
+                age = 18;
+            }
+            
+        }//设置器，接受一个参数value，表示要设置的年龄值
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        Student stu = new Student();
+        stu.Age = 22;
+        Console.WriteLine(stu.Age);
+    }
+}
+```
+
+属性的特点：
+
+1. 封装字段，将类中的字段与属性绑定到一起
+2. 避免非法数据的访问
+3. 保证数据的完整性
+
+属性与枚举:
+
+```cs
+public class Program
+{
+    public enum Genders
+    {
+        Male,
+        Famale
+    }
+
+    private Genders genders;
+    public Genders Gender
+    {
+        get { return  genders; }
+        set
+        {
+            genders = value;
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Program pro = new Program();
+        pro.Gender = Genders.Male;
+        //pro.Gender = "男";//不能直接赋值字符串
+        Console.WriteLine(pro.Gender);
+    }
+}
+```
+
+没有需要验证的逻辑，可以使用自动实现属性，get；set都必须有
+
+```cs
+ private int age;
+ public int Age { get;set;}
+```
+
+### 构造函数
+
+类中的一种特殊的方法
+构造函数名与类名相同，不返回任何值
+可初始化成员变量
+
+```cs
+class Student
+{
+    public Student()//构造函数
+    {
+
+    }
+}
+```
+
+有参构造函数：
+
+```cs
+public class Program
+{
+    public string Name;
+    public int Age;
+    public Program(string name,int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    static void Main(string[] args)
+    {
+        Program p = new Program("张三",20);
+        Console.WriteLine(p.Name);
+        Console.WriteLine(p.Age);
+    }
+}
+```
+
+如果在定义类时，定义了含有参数的构造函数，这时如果还想要使用默认无参构造函数，就需要显式的进行定义
+`public Program(){}`
+
+私有构造函数：
+
+```cs
+class Student
+{
+    private Student(){}
+}
+```
+
+使用公共静态方法来调用
+
+```cs
+class Student
+{
+    private Student() { }//私有构造函数，禁止外部直接创建Student类的对象实例
+    public static Student Create()//公共静态方法，用于创建Student类的对象实例
+    {
+        return new Student();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Student stu = Student.Create();//通过调用Student类的公共静态方法Create()来创建Student类的对象实例stu
+        stu.Age = 22;
+        Console.WriteLine(stu.Age);
+    }
+}
+```
+
+静态构造函数：
+
+```cs
+class Student
+{
+    static Student(){}
+}
+```
+
+1. 静态构造函数只执行一次
+2. 静态构造函数不能设置访问修饰符，因为其他C#代码从来不会调用它，它只在引用类之前执行一次
+3. 静态构造函数不能带任何参数，而且一个类中只能有一个静态构造函数，它只能访问类的静态成员，不能访问实例成员
+
+## 封装（访问修饰符）
+
+public  :所有对象都可以访问
+
+private :只有同一个类中的函数可以访问它的私有成员
+
+Protected ：该类内部和继承类中可以访问
+
+internal : 同一个程序集的对象可以访问
+
+Protected internal ：3 和 4 的并集，符合任意一条都可以访问
+
+范围比较：
+`private < internal/protected < protected internal < public`
+
+public 公共:
+
+```cs
+class Rectangle
+{
+    public double Length;
+    public double Width;
+
+    public double GetArea()
+    {
+        return Length * Width;
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("长度为 {0}",Length);
+        Console.WriteLine("宽度为 {0}",Width);
+        Console.WriteLine("面积为 {0}",GetArea());
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        Rectangle r = new Rectangle();
+        r.Length  = 2;
+        r.Width = 3;
+        r.Display();
+    }
+}
+```
+
+private 私有:
+
+```cs
+class Rectangle
+{
+    private double Length;
+    private double Width;
+
+    public void AcceptDetails()
+    {
+        Console.WriteLine("请输入长度：");
+        Length = Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine("请输入宽度：");
+        Width = Convert.ToDouble(Console.ReadLine());
+    }
+
+    public double GetArea()
+    {
+        return Length * Width;
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("长度为 {0}",Length);
+        Console.WriteLine("宽度为 {0}",Width);
+        Console.WriteLine("面积为 {0}",GetArea());
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        Rectangle r = new Rectangle();
+        r.AcceptDetails();
+        r.Display();
+    }
+}
+```
+
+internal 内在的:
+
+```cs
+class Rectangle
+{
+    internal double Length;
+    internal double Width;
+
+    //public void AcceptDetails()
+    //{
+    //    Console.WriteLine("请输入长度：");
+    //    Length = Convert.ToDouble(Console.ReadLine());
+    //    Console.WriteLine("请输入宽度：");
+    //    Width = Convert.ToDouble(Console.ReadLine());
+    //}
+
+    double GetArea()
+    { 
+        return Length * Width;
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("长度为 {0}",Length);
+        Console.WriteLine("宽度为 {0}",Width);
+        Console.WriteLine("面积为 {0}",GetArea());
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        Rectangle r = new Rectangle();
+        r.Length = 2.5;
+        r.Width = 3.5;
+        r.Display();
+    }
+}
+```
+
+## 方法
+
+方法是把一些相关的语句组织在一起，用来执行一个任务的语句块，每个C#程序至少有一个带有Main方法的类
+
+使用方法：
+
+1. 定义方法
+2. 调用方法
+
+语法：
+
+访问修饰符 返回类型 方法名称(参数)
+{
+  方法主体
+}
+
+第一种在同一个类体里写方法：
+
+```cs
+public class Program
+{
+    public int FindMax(int num, int num2)
+    {
+        int result;//局部变量
+        if (num > num2)
+        {
+            result = num;
+        }
+        else
+        {
+            result = num2;
+        }
+        return result;
+    }
+    static void Main(string[] args)
+    {
+        Program n = new Program();
+        int findMax = n.FindMax(30, 20);
+        Console.WriteLine(findMax);
+    }
+}
+```
+
+第二种，分别在不同类中：
+
+```cs
+class NumberManipulator
+{
+    public int FindMax(int num,int num2)
+    {
+        int result;//局部变量
+        if (num> num2)
+        {
+            result = num;
+        }
+        else
+        {
+            result = num2;
+        }
+        return result;
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        NumberManipulator n = new NumberManipulator();
+        int findMax = n.FindMax(30, 20);
+        Console.WriteLine(findMax);
+    }
+}
+```
+
+### 参数
+
+当调用带有参数的方法时，需要向方法传递参数
+
+有三种传递参数的方式：
+
+1. 值参数：复制参数的实际值 给方法的形式参数，实参和形参使用的是不同内存中的值，这种情况下，形参的值发生改变，不会影响实参的值
+2. 引用参数：复制参数的内存位置的引用 给形式参数，当形参的值发生改变时，实参的值也改变
+3. 输出参数：可以返回多个值
+
+值参数传递：
+
+结果表明，即使在函数内改变了值，值也没有发生任何的变化
+
+```cs
+public void swap(int x,int y)
+{
+  int temp;
+  temp = x;
+  x = y;
+  y = temp;
+}
+
+static void Main(string[] args)
+{
+  Program p = new Program();
+
+  int a = 100;
+  int b = 200;
+  Console.WriteLine("交换前：a={0},b={1}",a,b);//交换前：a=100,b=200
+
+  p.swap(a,b);
+  Console.WriteLine("交换后：a={0},b={1}",a,b);//交换后：a=100,b=200
+
+}
+```
+
+引用参数传递：
+
+结果表明，swap 函数内的值改变了，且这个改变可以在 Main 函数中反映出来
+
+```cs
+public void swap(ref int x,ref int y)
+{
+  int temp;
+  temp = x;
+  x = y;
+  y = temp;
+}
+
+static void Main(string[] args)
+{
+  Program p = new Program();
+
+  int a = 100;
+  int b = 200;
+  Console.WriteLine("交换前：a={0},b={1}",a,b);//交换前：a=100,b=200
+
+  p.swap(ref a,ref b);
+  Console.WriteLine("交换后：a={0},b={1}",a,b);//交换后：a=200,b=100
+
+}
+```
+
+输出参数传递：
+
+提供给输出参数的变量不需要赋值。当需要从一个参数没有指定初始值的方法中返回值时，输出参数特别有用
+
+```cs
+public void GetValues(out int x,out int y)
+{
+  Console.WriteLine("请输入第一个值：");
+  x = Convert.ToInt32(Console.ReadLine());
+  Console.WriteLine("请输入第二个值：");
+  y = Convert.ToInt32(Console.ReadLine());
+}
+
+static void Main(string[] args)
+{
+  Program p = new Program();
+  int a,b;
+
+  p.GetValues(out a,out b);
+  Console.WriteLine("方法调用后，a的值为 {0}",a);
+  Console.WriteLine("方法调用后，b的值为 {0}", b);
+
+}
+```
